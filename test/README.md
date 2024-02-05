@@ -1,9 +1,5 @@
 # Automated Testing Program - User Guide
 
----
-
-## test.sh [directory [result.csv]]
-
 - `directory` indicates the directory containing test configuration files.
 - `result.csv` specifies a file where test results will be appended.
 
@@ -22,8 +18,7 @@ If no arguments are provided, the script will process the current directory.
 
 *Validation indicates that the script will test compliance. If not satisfied, it will indicate non-compliance.
 
----
 
-## mktest.sh
+### mktest.sh
 
 Customizable file. As it stands, it seeks to validate all tests in directories whose names begin with "Test".
