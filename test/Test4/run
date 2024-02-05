@@ -1,0 +1,2 @@
+../../bin/analog -t 12 -g output.dot -e ../fichier.log
+

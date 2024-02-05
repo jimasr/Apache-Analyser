@@ -160,8 +160,6 @@ fi
 echo "-----------------------------------------------------------"
 echo 
 
-echo $execDir
-
 # log result in $2 if filename provided
 if [ "$2" != "" ]
 then
