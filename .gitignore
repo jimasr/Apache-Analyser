@@ -1,0 +1,49 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+/obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+/bin
+*.exe
+*.out
+*.app
+*Prog
+
+#MacOS
+*.DS_Store
+
+#Visual Studio
+*.sdf
+*.opensdf
+*.suo
+*.vcxproj.user
+*.vcproj.user
+*.ncb
+*.sln
+*.vscode
+*.vscode/.
