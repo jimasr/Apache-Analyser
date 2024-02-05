@@ -1,29 +1,32 @@
-echo "Test ID;Return code validation;Out result;StdErr result;File creation result;Global result" >results.csv
-nOk=0
-nKo=0
-nTotal=0
-nMis=0
+#!/bin/bash
 
-TEST_DIRS="test/Test*"
+clear
+cd ./test
+echo "Test ID;Return code validation;Out result;StdErr result;File creation result;Global result" > ./results.csv
 
-for i in $TEST_DIRS
+passed=0
+failed=0
+total=0
+malformed=0
+
+for i in Test*
 do
-  ./test/test.sh $i ./test/results.csv
+  ./test.sh $i ../results.csv
   result=$?
   if [ $result -eq 0 ]
   then
-    let "nKo=$nKo+1"
+    let "failed=$failed+1"
   elif [ $result -eq 1 ]
   then
-    let "nOk=$nOk+1"
+    let "passed=$passed+1"
   else
-    let "nMis=$nMis+1"
+    let "malformed=$malformed+1"
   fi
-  let "nTotal=$nTotal+1"
+  let "total=$total+1"
 done
 
-echo "Passed tests     : $nOk"
-echo "Failed tests     : $nKo"
-echo "Misformed tests  : $nMis"
-echo "-----------------------"
-echo "Total            : $nTotal"
+echo "Passed tests     : $passed"
+echo "Failed tests     : $failed"
+echo "Malformed tests  : $malformed"
+echo "--------------------"
+echo "Total            : $total"

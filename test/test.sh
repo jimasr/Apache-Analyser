@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "-----------------------------------------------------------"
 
 execDir=`pwd`
@@ -23,7 +25,7 @@ if [ -r "description" ]
 then 
   echo "-----------------------------------------------------------"
   echo "Description :"
-  fold description -w 60 -s
+  fold -w 60 -s description
   echo "-----------------------------------------------------------"
 fi
 
@@ -158,7 +160,7 @@ fi
 echo "-----------------------------------------------------------"
 echo 
 
-cd $execDir
+echo $execDir
 
 # log result in $2 if filename provided
 if [ "$2" != "" ]
@@ -169,7 +171,7 @@ then
   fi
   if [ -w "$2" ]
   then
-    echo "$Directory;$resultRC;$resultOut;$resultErr;$resultFiles;$resultGlobal" >>$2
+    echo "$Directory;$resultRC;$resultOut;$resultErr;$resultFiles;$resultGlobal" >> $2
   fi
 fi
 

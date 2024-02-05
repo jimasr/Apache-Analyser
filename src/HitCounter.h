@@ -163,7 +163,7 @@ void HitCounter<targetType>::Show() const// Algorithme :
             orderedHits.insert({itc->second,itc->first});
         }
 
-        cout << left << setw(20)<<  "[ Targets ]"        <<    "[ Hits ]"  << endl;
+        cout << left << setw(20) <<  "[ Targets ]"        <<    "[ Hits ]"  << endl;
         // On affiche soit tous, soit un nombre limité de paires target - hits 
        
         for(typename multimap<int,targetType>::const_reverse_iterator crit = orderedHits.crbegin(); crit != orderedHits.crend(); crit++)
@@ -185,9 +185,8 @@ void HitCounter<targetType>::Show(const unsigned int lim) const// Algorithme :
         orderedHits.insert({itc->second,itc->first});
     }
 
-
     // On affiche sous forme de tableau soit tous, soit un nombre limité de paires target - hits 
-    cout << left << setw(40)<<  "[ Targets ]"        <<    "[ Hits ]"  << endl;
+    cout << left << setw(60)<< "TARGETS" << "HITS" << endl;
     int i = 0;
     typename multimap<int,targetType>::const_reverse_iterator crit = orderedHits.crbegin();
     while(i < lim && crit != orderedHits.crend())
@@ -213,7 +212,7 @@ void HitCounter<targetType>::printItem(typename multimap<int,targetType>::const_
 // Algorithme :
 //
 {
-    cout << left << setw(40) <<  itc->second << "  ( " <<     itc->first      << " hits )"<< endl;
+    cout << left << setw(60) <<  itc->second << itc->first << endl;
 } //----- Fin de printItem
 
 #endif // HitCounter_H

@@ -47,3 +47,6 @@
 *.sln
 *.vscode
 *.vscode/.
+
+#Test Results
+*./test/results.csv
