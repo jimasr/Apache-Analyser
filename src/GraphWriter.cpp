@@ -1,7 +1,7 @@
 /*************************************************************************
 						 GraphWriter.cpp  -  description
 							-------------------
-	début                : 16/01
+	début                : 16/01/2024
 	copyright            : (C) 2024 par SOW Amadou - LARRAZ MARTIN Diego - ASRI Hazim - CATHERINE Noam
 	e-mail               : 
 *************************************************************************/
@@ -76,6 +76,14 @@ char GraphWriter::AddRelation(const string referer, const string target, const i
 	}
 	refTargetHitMap[key] = hit;
 	return 1;
+}
+
+void GraphWriter::Clear() 
+// Algorithme :
+//
+{
+	nodes.clear();
+	refTargetHitMap.clear();
 }
 
 //-------------------------------------------- Constructeurs - destructeur

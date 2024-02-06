@@ -1,0 +1,1 @@
+../../bin/analog -g fichier.dot -t 15 -e ../fichierintrouvable.log

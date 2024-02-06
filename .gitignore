@@ -32,6 +32,7 @@
 *.exe
 *.app
 *Prog
+*tmp
 
 #MacOS
 *.DS_Store
