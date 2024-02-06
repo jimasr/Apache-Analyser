@@ -2,7 +2,7 @@
                            LogHistory  -  description
                              -------------------
     début                : 16/01/2024
-    copyright            : (C) 2024 par ...
+    copyright            : (C) 2024 par SOW Amadou - LARRAZ MARTIN Diego - ASRI Hazim - CATHERINE Noam
     e-mail               : 
 *************************************************************************/
 
@@ -22,12 +22,6 @@
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type LogHistory::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
-
 
 //------------------------------------------------- Surcharge d'opérateurs
 LogHistory & LogHistory::operator = ( const LogHistory & l )
@@ -41,15 +35,13 @@ LogHistory & LogHistory::operator = ( const LogHistory & l )
 
 
 //-------------------------------------------- Constructeurs - destructeur
-LogHistory::LogHistory ( const LogHistory & l )
+LogHistory::LogHistory ( const LogHistory & l ) : logHits(l.logHits), graphWriter(l.graphWriter)
 // Algorithme :
 //
 {
     #ifdef MAP
         cout << "Appel au constructeur de copie de <LogHistory>" << endl;
     #endif
-    logHits = l.logHits;
-    //graphWriter = unLogHistory.graphWriter;
 } //----- Fin de LogHistory (constructeur de copie)
 
 
@@ -57,27 +49,25 @@ LogHistory::LogHistory ()
 // Algorithme :
 //
 {
-#ifdef MAP
-    cout << "Appel au constructeur avec fichier de <LogHistory>" << endl;
-#endif
-
+    #ifdef MAP
+        cout << "Appel au constructeur avec fichier de <LogHistory>" << endl;
+    #endif
 } //----- Fin de LogHistory
 
 LogHistory::~LogHistory ()
 // Algorithme :
 //
 {
-#ifdef MAP
-    cout << "Appel au destructeur de <LogHistory>" << endl;
-#endif
+    #ifdef MAP
+        cout << "Appel au destructeur de <LogHistory>" << endl;
+    #endif
 } //----- Fin de ~LogHistory
 
 
-bool LogHistory::WriteGraph (const string dotFileName, const char sep) const
+bool LogHistory::WriteGraph (const string dotFileName) const
 // Algorithme :
 //
 {
-
     ofstream output(dotFileName);
 
     if(output.is_open()) 
@@ -96,11 +86,12 @@ void LogHistory::Clear()
 // Algorithme :
 //
 {
+    graphWriter.Clear();
     logHits.Clear();
 } //----- Fin de Clear
 
 
-bool LogHistory::ReadLog (const string logFileName, const bool excludeMediaFiles, const char timeLim[2 + 1],  const bool flush)
+bool LogHistory::ReadLog (const string logFileName, const bool flush, const bool excludeMediaFiles, const char timeLim[2 + 1])
 // Algorithme :
 //
 {   
@@ -116,8 +107,7 @@ bool LogHistory::ReadLog (const string logFileName, const bool excludeMediaFiles
         LogReader LReader(&current_log);
 
         while(fileRead >> LReader){
-            // ajouter referer : target, hits avec logInfo
-            //nodes[current_log.referer + separator + current_log.target] = 1 ou += 1 (2 cas);
+            // if(current_log.status == "200" && searchFilter(current_log,excludeMediaFiles,timeLim)) selon l'implementation
             if(searchFilter(current_log,excludeMediaFiles,timeLim))
             {
                 graphWriter.AddRelation(current_log.referer, current_log.target, 1);

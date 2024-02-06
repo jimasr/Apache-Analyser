@@ -1,9 +1,9 @@
 /*************************************************************************
                            HitCounter  -  description
                              -------------------
-    début                : $DATE$
-    copyright            : (C) $YEAR$ par $AUTHOR$
-    e-mail               : $EMAIL$
+    début                : 16/01/2024
+    copyright            : (C) 2024 par SOW Amadou - LARRAZ MARTIN Diego - ASRI Hazim - CATHERINE Noam
+    e-mail               : 
 *************************************************************************/
 
 //---------- Interface de la classe <HitCounter> (fichier HitCounter.h) ----------------
@@ -23,9 +23,10 @@ using namespace std;
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
-// Rôle de la classe <HitCounter>
-//
-//
+// <HitCounter> est une class générique qui permet de facilement associer 
+// des elements d'un type indiqué à un compteur (Hits).
+// Cette classe permet de même d'afficher de manière decroissante
+// les elements de cette structure en fonction de leur Hits.
 //------------------------------------------------------------------------
 template <typename targetType>
 class HitCounter
@@ -34,54 +35,52 @@ class HitCounter
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
 
 //------------------------------------------------- Surcharge d'opérateurs
     HitCounter<targetType> & operator = ( const HitCounter<targetType> & unHitCounter );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-   
 
 //-------------------------------------------- Constructeurs - destructeur
     HitCounter ( const HitCounter<targetType> & unHitCounter );
     // Mode d'emploi (constructeur de copie) :
-    //
-    // Contrat :
-    //
     
     HitCounter ( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-   
+    // Mode d'emploi (constructeur)
+
     virtual ~HitCounter ( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    // Mode d'emploi (destructeur)
     
     bool Augment(const targetType targt, const int nbHits);
+    // Mode d'emploi : 
+    // Si targt existe dans cette structure de données, augmente son compteur (Hits) de nbHits.
+    // Dans le cas contraire, crée un nouveau élément dans cette structure de données avec un compteur (Hits) defini à nbHits. 
+    // nbHits peut être negatif. 
+    //
+    // Renvoie true si targt existait déjà, false sinon.
 
     void Show(const unsigned int lim) const;
+    // Mode d'emploi : Affiche les paires target - hits de cette structure de données
+    // L'affichage est ordonné en décroissance par rapport aux hits et limité à "lim" paires affichées.
+    // Si lim excède le nombre d'élements presents dans cette structure alors toutes les paires seront affichées.
 
     void Show() const;
+    // Mode d'emploi : Affiche toutes les paires target - hits de cette structure de données
+    // L'affichage est ordonné en décroissance par rapport aux hits.
+
 
     void Clear();
-    
+    // Mode d'emploi : Réinitialise cette structure de données en effaçant ses contenus (vidage).
+
 //------------------------------------------------------------------ PRIVE
 private:
 
 //----------------------------------------------------- Méthodes privées
 
 void printItem(typename multimap<int,targetType>::const_reverse_iterator & itc) const;
+// Mode d'emploi : Affiche uen paire target - hits avec un format défini
+// Utilisée par les fonctions Show.
+// Contrat :
+// itc est un iterateur sur une paire d'une multimap où les paires targt - hits ont été insérées pour les ordonner
+
 
 //----------------------------------------------------- Attributs privés
     unordered_map<targetType, int> targetHits;
@@ -90,7 +89,7 @@ void printItem(typename multimap<int,targetType>::const_reverse_iterator & itc) 
 //-------------------------------- Autres définitions dépendantes de <HitCounter>
 
 
-
+//------------------------------------------------- Surcharge d'opérateurs
 template <typename targetType>
 HitCounter<targetType> & HitCounter<targetType>::operator = ( const HitCounter<targetType> & unHitCounter )
 // Algorithme :
@@ -100,16 +99,15 @@ HitCounter<targetType> & HitCounter<targetType>::operator = ( const HitCounter<t
     return (*this);
 } //----- Fin de operator =
 
-
+//-------------------------------------------- Constructeurs - destructeur
 template <typename targetType>
-HitCounter<targetType>::HitCounter ( const HitCounter<targetType> & unHitCounter )
+HitCounter<targetType>::HitCounter ( const HitCounter<targetType> & unHitCounter ) : targetHits(unHitCounter.targetHits)
 // Algorithme :
 //
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <HitCounter>" << endl;
 #endif
-    targetHits = unHitCounter.targetHits;
 } //----- Fin de HitCounter (constructeur de copie)
 
 
@@ -121,7 +119,6 @@ HitCounter<targetType>::HitCounter ( )
 #ifdef MAP
     cout << "Appel au constructeur de base de <HitCounter>" << endl;
 #endif
-
 } //----- Fin de HitCounter
 
 
@@ -135,13 +132,13 @@ HitCounter<targetType>::~HitCounter ( )
 #endif
 } //----- Fin de ~HitCounter
 
-
+//----------------------------------------------------- Méthodes publiques
 template <typename targetType>
-bool HitCounter<targetType>::Augment(const targetType targt, const int nbHits)// Algorithme :
+bool HitCounter<targetType>::Augment( const targetType targt, const int nbHits )// Algorithme :
 // Algorithme :
 //
 {
-    if(targetHits.find(targt) != targetHits.end()){ 
+    if(targetHits.find(targt) != targetHits.end()){ // s'il existe, find ne donnera pas l'iterateur end
         targetHits[targt] += nbHits;
         return true;
     }   
@@ -156,16 +153,15 @@ void HitCounter<targetType>::Show() const// Algorithme :
 // Algorithme :
 //
 {
-        // On ordonne les targets par le nombre de hits
+        // On ordonne les targets par le nombre de hits dans une nouvelle structure de données
         multimap<int,targetType> orderedHits;
         for(typename unordered_map<targetType, int>::const_iterator itc = targetHits.cbegin(); itc != targetHits.cend(); itc++)
         {
-            orderedHits.insert({itc->second,itc->first});
+            orderedHits.insert(make_pair(itc->second,itc->first));
         }
 
-        cout << left << setw(20)<<  "[ Targets ]"        <<    "[ Hits ]"  << endl;
-        // On affiche soit tous, soit un nombre limité de paires target - hits 
-       
+        cout << left << setw(60) <<  "[ Targets ]"        <<    "[ Hits ]"  << endl;
+        // On affiche soit tous les paires target - hits 
         for(typename multimap<int,targetType>::const_reverse_iterator crit = orderedHits.crbegin(); crit != orderedHits.crend(); crit++)
         {
             printItem(crit);
@@ -178,17 +174,16 @@ void HitCounter<targetType>::Show(const unsigned int lim) const// Algorithme :
 // Algorithme :
 //
 {
-    // On ordonne les targets par le nombre de hits
+    // On ordonne les targets par le nombre de hits dans une nouvelle structure de données
     multimap<int,targetType> orderedHits;
     for(typename unordered_map<targetType, int>::const_iterator itc = targetHits.cbegin(); itc != targetHits.cend(); itc++)
     {
-        orderedHits.insert({itc->second,itc->first});
+        orderedHits.insert(make_pair(itc->second,itc->first));
     }
 
-
     // On affiche sous forme de tableau soit tous, soit un nombre limité de paires target - hits 
-    cout << left << setw(40)<<  "[ Targets ]"        <<    "[ Hits ]"  << endl;
-    int i = 0;
+    cout << left << setw(60)<< "TARGETS" << "HITS" << endl;
+    unsigned int i = 0;
     typename multimap<int,targetType>::const_reverse_iterator crit = orderedHits.crbegin();
     while(i < lim && crit != orderedHits.crend())
     {
@@ -207,13 +202,13 @@ void HitCounter<targetType>::Clear()
 } //----- Fin de Clear
 
 
-// privé
+//----------------------------------------------------- Méthodes privées
 template <typename targetType>
 void HitCounter<targetType>::printItem(typename multimap<int,targetType>::const_reverse_iterator & itc) const
 // Algorithme :
 //
 {
-    cout << left << setw(40) <<  itc->second << "  ( " <<     itc->first      << " hits )"<< endl;
+    cout << left << setw(60) <<  itc->second << itc->first << endl;
 } //----- Fin de printItem
 
 #endif // HitCounter_H

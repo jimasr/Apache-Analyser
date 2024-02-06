@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "-----------------------------------------------------------"
 
 execDir=`pwd`
@@ -23,7 +25,7 @@ if [ -r "description" ]
 then 
   echo "-----------------------------------------------------------"
   echo "Description :"
-  fold description -w 60 -s
+  fold -w 60 -s description
   echo "-----------------------------------------------------------"
 fi
 
@@ -48,17 +50,19 @@ fi
 # stdout has been specified
 if [ -r "std.out" ]
 then 
-  sRun="$sRun >temp.txt"
+  sRun="$sRun > temp.txt"
 fi
 
 # stderr has been specified
 if [ -r "stderr.out" ]
 then 
-  sRun="$sRun 2>temperr.txt"
+  sRun="$sRun 2> temperr.txt"
 fi
 
-echo $sRun
+echo "Command line :"
+echo -e "$sRun\n" | fold -w 60 -s
 # execute the command line
+echo "-----------------------------------------------------------"
 eval $sRun
 returnCode=$?
 
@@ -83,7 +87,7 @@ fi
 resultOut=2
 if [ -r "std.out" ]
 then 
-  diff -wB temp.txt std.out >/dev/null
+  diff -wB temp.txt std.out > /dev/null
   if [ $? -eq 0 ]
   then
     echo "                                       Stdout      : PASSED"
@@ -101,7 +105,7 @@ fi
 resultErr=2
 if [ -r "stderr.out" ]
 then 
-  diff -wB temperr.txt stderr.out >/dev/null
+  diff -wB temperr.txt stderr.out > /dev/null
   if [ $? -eq 0 ]
   then
     echo "                                       Stderr      : PASSED"
@@ -158,8 +162,6 @@ fi
 echo "-----------------------------------------------------------"
 echo 
 
-cd $execDir
-
 # log result in $2 if filename provided
 if [ "$2" != "" ]
 then
@@ -169,7 +171,7 @@ then
   fi
   if [ -w "$2" ]
   then
-    echo "$Directory;$resultRC;$resultOut;$resultErr;$resultFiles;$resultGlobal" >>$2
+    echo "$Directory;$resultRC;$resultOut;$resultErr;$resultFiles;$resultGlobal" >> $2
   fi
 fi
 

@@ -1,1 +1,2 @@
-echo "yop !"
+../../bin/analog -t 12 -g output.dot ../fichier.log
+

@@ -1,8 +1,14 @@
-# Graphiz
+# Apache Analyser
+
+<p align="center">
+<img src="https://badgen.net/badge/Licence/MIT/green?icon=">
+<img src="https://badgen.net/badge/Repository/Github/black?icon=github">
+<img src="https://badgen.net/badge/Language/C++/blue?icon=c++">
+</p>
 
 ## Overview
 
-Analog is a command-line tool designed for analyzing log files and generating graphical representations of website traffic patterns. It provides insights into the frequency and relationships between different web pages based on log data. Analog supports various options to tailor the analysis and visualization process according to user preferences.
+Apache Analyser is a command-line tool designed for analyzing log files and generating graphical representations of website traffic patterns. It provides insights into the frequency and relationships between different web pages based on log data. Apache Analyser supports various options to tailor the analysis and visualization process according to user preferences.
 
 ## Getting Started
 
@@ -10,17 +16,25 @@ Analog is a command-line tool designed for analyzing log files and generating gr
 
 To use Analog, follow these steps:
 
-1. Clone the repository: `git clone https://example.com`
-2. Change to the Analog directory: `cd analog`
-3. Compile the source code: `make`
-4. The compiled code can be found in `/bin` folder
+1. Clone the repository: `git clone https://github.com/jimasr/apache-analyser`
+2. Compile the source code: `make`
+3. The compiled code can be found in `/bin` folder
+
+### Test
+
+The program includes a versatile makefile with the command make to facilitate testing.
+
+To test the program, use `make test`. 
+Tests are defined by the name of the folders created under the `test` directory. The output of the test is by default written in `results.csv`.
+
+Feel free to customise the testing procedures using `mktest.sh`.
 
 ### Usage
 
 Run Analog with the following command format:
 
 ```bash
-$ ./analog [options] nomfichier.log
+$ ./bin/analog [flags] nomfichier.log
 ```
 
 #### Flags
@@ -37,12 +51,11 @@ $ ./analog -g [filename] nomfichier.log
 $ ./analog -e nomfichier.log
 ```
 
-`-t hour`: This option considers only hits within the time slot corresponding to the interval [heure, heure+1[.
+`-t hour`: This option considers only hits within the time slot corresponding to the interval [hour, hour+1[.
 
 ```bash
 $ ./analog -t [hour] nomfichier.log
 ```
-
 
 ### Tutorials
 
@@ -94,6 +107,7 @@ Dot-file court.dot generated
 /page1.html (1 hits)
 
 ```
+
 The generated court.dot file:
 
 ```
@@ -106,5 +120,4 @@ digraph {
   node1 -> node0 [label="2"];
   node2 -> node0 [label="1"];
 }
-
-
+```

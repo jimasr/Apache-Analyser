@@ -1,1 +1,2 @@
-cat 
+../../bin/analog -t ../fichier.log
+

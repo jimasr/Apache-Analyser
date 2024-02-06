@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -std=c++11 -Wall #-ansi -pedantic #-DMAP
+CXXFLAGS = -std=c++11 -Wall -ansi -pedantic #-DMAP
 
 SRC_DIR = src
 OBJ_DIR = obj
@@ -16,7 +16,9 @@ SRCS = \
 	$(SRC_DIR)/LogReader.cpp 
 
 OBJS = $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRCS))
-TARGET = $(BIN_DIR)/graphiz
+TARGET = $(BIN_DIR)/analog
+
+.PHONY: clean test 
 
 all: directories $(TARGET)
 
@@ -33,8 +35,8 @@ clean:
 	@rm -rf $(OBJ_DIR) $(BIN_DIR)
 	@rm -rf $(wildcard *.dot)
 
-test: 
-	./$(TEST_FILE)
+test: all
+	$(TEST_FILE)
 
 
 

@@ -17,7 +17,8 @@ using namespace std;
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-typedef struct Time {
+typedef struct Time 
+{
 
     string year;
     string month;
@@ -26,22 +27,23 @@ typedef struct Time {
     string min;
     string sec;
 
-}Time;
+} Time;
 
-
-typedef struct logInfo {
-  string IPAddress;
-  string logname;
-  string username;
-  string referer;
-  string target;
-  Time timeOfOperation;
-  string extension;
-  string status;
-  string dataQuantity;
-  string action;
-  string navigator;
+typedef struct logInfo
+{
+ 	 string IPAddress;
+	string logname;
+	string username;
+	string referer;
+	string target;
+	Time timeOfOperation;
+	string extension;
+	string status;
+	string dataQuantity;
+	string action;
+	string navigator;
 } LogInfo;
+
 //------------------------------------------------------------------------
 // Rôle de la classe <LogReader>
 //
@@ -55,7 +57,7 @@ class LogReader
 
 public:
 //------------------------------------------------- Surcharge d'opérateurs
-    friend ifstream & operator >> (ifstream & ifs, LogReader & logR);
+    friend ifstream & operator >> (ifstream & ifs, const LogReader & logR);
     // Mode d'emploi :
   	// Prends un LogReader et un ifstream vers un fichier (.log) en entrée.
     // Utilisé comme suit :  ifstream_file >> LogReader_variable
@@ -68,36 +70,29 @@ public:
   	// ifs est un fichier (.log)
 
   	LogReader & operator = (const LogReader & logR);
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //Le pointeur InfoLog du LogReader fourni n'est pas NULL.
 
- //file >> LogReader(&(Log))
+ 	//file >> LogReader(&(Log))
 //-------------------------------------------- Constructeurs - destructeur
 
-		LogReader(const LogReader &logR);
+	LogReader(const LogReader &logR);
     // Mode d'emploi :
     // Construit un nouvel objet LogReader en copiant les attributs de l'objet logR.
     // Contrat :
     // L'objet logR doit être correctement construit et initialisé, sinon le comportement est indéfini.
     // La copie doit être effectuée de manière appropriée pour chaque attribut de LogReader.
 
-
-    LogReader (LogInfo * log); //Constructeur de la classe
+    LogReader (LogInfo * log, const string base = "intranet-if.insa-lyon.fr"); //Constructeur de la classe
     // Mode d'emploi :
-    // Construit un nouvel objet LogReader à partir d'un pointeur sur un objet de type Infolog.
-		// Contrat :
-    // Le pointeur InfoLog du LogReader fourni n'est pas NULL.
+    // Construit un nouvel objet LogReader à partir d'un pointeur sur un objet de type Infolog. 
+    // Base est un domaine local qu'on cherche à enlever
 
     virtual ~LogReader ( );
     // Mode d'emploi :
     // Destructeur de la classe -> se lance à la fin de la durée de vie de l'instance
-    // Contrat :
-    // Aucun
 
 //----------------------------------------------------- Attributs Private
   	LogInfo * logInfo;
+    string base;
 
 };
 

@@ -6,7 +6,7 @@
     e-mail               : 
 ********************************************************************************************************/
 
-//---------- Interface de la classe <LogReader> (fichier LogReader.h) ----------------
+//---------- Interface de la classe <GraphWriter> (fichier GraphWriter.h) ----------------
 #if ! defined ( __GRAPHWRITER_H__ )
 #define __GRAPHWRITER_H__
 
@@ -36,34 +36,28 @@ public:
 
 //------------------------------------------------- Surcharge d'opérateurs
 	friend ofstream& operator << (ofstream & ofs, const GraphWriter &graphWriter);
-	// Mode d'emploi : necessite l'implementation de to_string method pour la classe T
-	//
-	// Contrat : 
-	//
+	// Mode d'emploi (surcharge de l'opérateur <<): 
+	// prends un ofstream et un GraphWriter en entrée et écrit dans le output file stream sous forme 
+	// d'un graphe dot
   
 //-------------------------------------------- Constructeurs - destructeur
-	GraphWriter(); //Constructeur par defaut de la classe
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+	GraphWriter();
+	// Mode d'emploi (constructeur par defaut) : 
 
 	char AddRelation(const string referer, const string target, const int hit);
-	// Mode d'emploi : 
-	//
-	// Contrat : returns 0 if the relation already exists, 1 otherwise
-	//
+	// Mode d'emploi : ajout d'une relation entre deux noeuds dans le graph, si le noeud n'existe pas, il est créé
+	// s'il existe, on ajoute le hit à la relation
+	// Contrat : hit doit être positif
+
+	void Clear();
 
 	virtual ~GraphWriter();
-	// Mode d'emploi : 
-	//
-	// Contrat : 
-	//
+	// Mode d'emploi (destructeur) : 
   
 //----------------------------------------------------- Attributs Private
 private:
-	map<pair<string, string>, int> refTargetHitMap;
-	set<string> nodes; //unique values of nodes;
+	map<pair<string, string>, int> refTargetHitMap; //map de referer, le target et le nombre de hit
+	set<string> nodes; //valeurs uniques de noeuds
 };
 
 //-------------------------------- Autres définitions dépendantes de <Xxx>

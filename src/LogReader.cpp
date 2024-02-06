@@ -22,19 +22,14 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type Xxx::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-ifstream  & operator >> (ifstream & ifs, LogReader & LogR)
+ifstream  & operator >> (ifstream & ifs, const LogReader & LogR)
 // Algorithme :
 //
 {
-  int pos; // utilisé pour mémoriser une position ou chercher
+  size_t pos; // utilisé pour mémoriser une position ou chercher
   string tmp; // utilisé pour mémoriser un bout de texte à utiliser/modifier
 
   if (ifs.is_open())
@@ -69,11 +64,17 @@ ifstream  & operator >> (ifstream & ifs, LogReader & LogR)
       getline(ifs,tmp,' ');
       pos = tmp.find("/");
       
-      if(tmp.substr(0,pos) == "intranet-if.insa-lyon.fr") // on l'enlève dans ce cas
+      if(tmp.substr(0,pos) == LogR.base) // on l'enlève dans ce cas
       {
         tmp = tmp.substr(pos);
       }
     }
+    pos = tmp.rfind('?');
+    if(pos != string::npos) 
+    {
+      tmp = tmp.substr(0, pos);
+    }
+
     (LogR.logInfo)->target = tmp;
 
     // on obtient le type de fichier du target.
@@ -114,7 +115,7 @@ ifstream  & operator >> (ifstream & ifs, LogReader & LogR)
       getline(ifs,tmp,'"');
       pos = tmp.find("/");
       
-      if(tmp.substr(0,pos) == "intranet-if.insa-lyon.fr") // on l'enlève dans ce cas
+      if(tmp.substr(0,pos) == LogR.base) // on l'enlève dans ce cas
       {
         tmp = tmp.substr(pos);
       }
@@ -141,33 +142,30 @@ LogReader & LogReader::operator = ( const LogReader & logR )
 //
 {
   logInfo = logR.logInfo;
+  base = logR.base;
   return (*this);
 
 } //----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur
-LogReader::LogReader ( const LogReader & logR )
+LogReader::LogReader (const LogReader & logR) : logInfo(logR.logInfo), base(logR.base)
 // Algorithme :
 //
 {
-  logInfo = logR.logInfo;
   #ifdef MAP
       cout << "Appel au constructeur de copie de <LogReader>" << endl;
   #endif
 } //----- Fin de LogReader (constructeur de copie)
 
 
-LogReader::LogReader (LogInfo * log)
+LogReader::LogReader (LogInfo * log, const string b) : logInfo(log), base(b)
 // Algorithme :
 //
 {
-  logInfo = log;
-  {
-    #ifdef MAP
-        cout << "Appel au constructeur de <LogReader>" << endl;
-    #endif
-  }
+  #ifdef MAP
+      cout << "Appel au constructeur de <LogReader>" << endl;
+  #endif
 } //----- Fin de LogReader
 
 

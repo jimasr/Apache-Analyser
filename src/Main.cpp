@@ -1,3 +1,11 @@
+/********************************************************************************************************
+                           Main.cpp  -  description
+                             -------------------
+    début                : 16/01/2024
+    copyright            : (C) 2024 par SOW Amadou - LARRAZ MARTIN Diego - ASRI Hazim - CATHERINE Noam
+    e-mail               :
+********************************************************************************************************/
+
 #include "LogHistory.h"
 
 int Size(const char * str)
@@ -7,10 +15,14 @@ int Size(const char * str)
     return i;
 }
 
-bool CheckExtension(const char * str)
+bool VerifyTime(const string str) 
+{  
+    return (Size(str.c_str()) == 2) && ((str[0]>=48 && str[0] <= 49 && str[1]<= 57 && str[1] >= 48) || (str[0] == 50 && str[1]<= 52 && str[1] >= 48)) ;
+}
+
+bool CheckExtension(const char * str, const char * extension)
 {
     int size = Size(str);
-    const char * const extension = ".log";
     int extensionSize = Size(extension);
     if(extensionSize < size)
     {
@@ -28,7 +40,7 @@ bool CheckExtension(const char * str)
 
 int main(int nbargs, char* argvs[]){
     LogHistory logHist;
-    if(nbargs < 2 || !(CheckExtension(argvs[nbargs - 1])))
+    if(nbargs < 2 || !(CheckExtension(argvs[nbargs - 1], ".log")))
     {
         cerr << "Please provide a log file." << endl;
         return 1;
@@ -37,7 +49,7 @@ int main(int nbargs, char* argvs[]){
     char timeLim[3] = "xx";
     bool excludeMediaF = false;
     bool writing = false;
-    string dotFileName;
+    string dotFileName = "output.dot";
 
     if(nbargs > 2)
     {
@@ -48,19 +60,22 @@ int main(int nbargs, char* argvs[]){
             {
                 case 'g':
                     writing = true;
-                    i++; 
-                    if(i >= nbargs - 1)
+                    if(CheckExtension(argvs[i + 1], ".dot"))
                     {
-                        cerr << "Please provide a file name for the graph." << endl;
-                        return 1;
+                        i++; 
+                        dotFileName = argvs[i];
                     }
-                    dotFileName = argvs[i];
                     break;
                 case 'e':
                     excludeMediaF = true;
                     break;
                 case 't':
-                    i++; 
+                    i++;
+                    if(!VerifyTime(argvs[i])) 
+                    {
+                        cerr << "Valid time was not given (00 - 24)." << endl;
+                        return 1;
+                    }
                     timeLim[0] = argvs[i][0];
                     timeLim[1] = argvs[i][1];
                     break;
@@ -73,12 +88,15 @@ int main(int nbargs, char* argvs[]){
         
     }
     
-    logHist.ReadLog(argvs[nbargs - 1], excludeMediaF, timeLim);
-    logHist.Show(10);
-    if(writing)
-    {
-        logHist.WriteGraph(dotFileName);
+    bool readSuccess = logHist.ReadLog(argvs[nbargs - 1], true, excludeMediaF, timeLim);
+    if(readSuccess) {
+        logHist.Show(10);
+        if(writing)
+        {
+            logHist.WriteGraph(dotFileName);
+        }
     }
+
 
     return 0;
 
