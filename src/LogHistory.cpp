@@ -2,7 +2,7 @@
                            LogHistory  -  description
                              -------------------
     début                : 16/01/2024
-    copyright            : (C) 2024 par ...
+    copyright            : (C) 2024 par SOW Amadou - LARRAZ MARTIN Diego - ASRI Hazim - CATHERINE Noam
     e-mail               : 
 *************************************************************************/
 
