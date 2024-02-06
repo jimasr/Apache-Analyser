@@ -178,7 +178,7 @@ void HitCounter<targetType>::Show(const unsigned int lim) const// Algorithme :
     multimap<int,targetType> orderedHits;
     for(typename unordered_map<targetType, int>::const_iterator itc = targetHits.cbegin(); itc != targetHits.cend(); itc++)
     {
-        orderedHits.insert({itc->second,itc->first});
+        orderedHits.insert(make_pair(itc->second,itc->first));
     }
 
     // On affiche sous forme de tableau soit tous, soit un nombre limité de paires target - hits 
