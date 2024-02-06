@@ -183,7 +183,7 @@ void HitCounter<targetType>::Show(const unsigned int lim) const// Algorithme :
 
     // On affiche sous forme de tableau soit tous, soit un nombre limité de paires target - hits 
     cout << left << setw(60)<< "TARGETS" << "HITS" << endl;
-    int i = 0;
+    unsigned int i = 0;
     typename multimap<int,targetType>::const_reverse_iterator crit = orderedHits.crbegin();
     while(i < lim && crit != orderedHits.crend())
     {

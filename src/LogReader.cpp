@@ -29,7 +29,7 @@ ifstream  & operator >> (ifstream & ifs, const LogReader & LogR)
 // Algorithme :
 //
 {
-  int pos; // utilisé pour mémoriser une position ou chercher
+  size_t pos; // utilisé pour mémoriser une position ou chercher
   string tmp; // utilisé pour mémoriser un bout de texte à utiliser/modifier
 
   if (ifs.is_open())
