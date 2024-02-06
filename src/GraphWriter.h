@@ -6,7 +6,7 @@
     e-mail               : 
 ********************************************************************************************************/
 
-//---------- Interface de la classe <LogReader> (fichier LogReader.h) ----------------
+//---------- Interface de la classe <GraphWriter> (fichier GraphWriter.h) ----------------
 #if ! defined ( __GRAPHWRITER_H__ )
 #define __GRAPHWRITER_H__
 

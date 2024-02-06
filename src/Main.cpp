@@ -1,3 +1,11 @@
+/********************************************************************************************************
+                           Main.cpp  -  description
+                             -------------------
+    début                : 16/01/2024
+    copyright            : (C) 2024 par SOW Amadou - LARRAZ MARTIN Diego - ASRI Hazim - CATHERINE Noam
+    e-mail               :
+********************************************************************************************************/
+
 #include "LogHistory.h"
 
 int Size(const char * str)
@@ -7,8 +15,7 @@ int Size(const char * str)
     return i;
 }
 
-
-bool verifyTime(const string str) 
+bool VerifyTime(const string str) 
 {  
     return (Size(str.c_str()) == 2) && ((str[0]>=48 && str[0] <= 49 && str[1]<= 57 && str[1] >= 48) || (str[0] == 50 && str[1]<= 52 && str[1] >= 48)) ;
 }
@@ -64,7 +71,7 @@ int main(int nbargs, char* argvs[]){
                     break;
                 case 't':
                     i++;
-                    if(!verifyTime(argvs[i])) 
+                    if(!VerifyTime(argvs[i])) 
                     {
                         cerr << "Valid time was not given (00 - 24)." << endl;
                         return 1;

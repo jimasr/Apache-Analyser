@@ -17,7 +17,8 @@ using namespace std;
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-typedef struct Time {
+typedef struct Time 
+{
 
     string year;
     string month;
@@ -26,22 +27,23 @@ typedef struct Time {
     string min;
     string sec;
 
-}Time;
+} Time;
 
-
-typedef struct logInfo {
-  string IPAddress;
-  string logname;
-  string username;
-  string referer;
-  string target;
-  Time timeOfOperation;
-  string extension;
-  string status;
-  string dataQuantity;
-  string action;
-  string navigator;
+typedef struct logInfo
+{
+ 	 string IPAddress;
+	string logname;
+	string username;
+	string referer;
+	string target;
+	Time timeOfOperation;
+	string extension;
+	string status;
+	string dataQuantity;
+	string action;
+	string navigator;
 } LogInfo;
+
 //------------------------------------------------------------------------
 // Rôle de la classe <LogReader>
 //
@@ -69,10 +71,10 @@ public:
 
   	LogReader & operator = (const LogReader & logR);
 
- //file >> LogReader(&(Log))
+ 	//file >> LogReader(&(Log))
 //-------------------------------------------- Constructeurs - destructeur
 
-		LogReader(const LogReader &logR);
+	LogReader(const LogReader &logR);
     // Mode d'emploi :
     // Construit un nouvel objet LogReader en copiant les attributs de l'objet logR.
     // Contrat :
