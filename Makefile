@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -std=c++11 -Wall #-ansi -pedantic #-DMAP
+CXXFLAGS = -std=c++11 -Wall -ansi -pedantic #-DMAP
 
 SRC_DIR = src
 OBJ_DIR = obj
