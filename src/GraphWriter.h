@@ -56,8 +56,8 @@ public:
   
 //----------------------------------------------------- Attributs Private
 private:
-	map<pair<string, string>, int> refTargetHitMap;
-	set<string> nodes; //unique values of nodes;
+	map<pair<string, string>, int> refTargetHitMap; //map de referer, le target et le nombre de hit
+	set<string> nodes; //valeurs uniques de noeuds
 };
 
 //-------------------------------- Autres définitions dépendantes de <Xxx>

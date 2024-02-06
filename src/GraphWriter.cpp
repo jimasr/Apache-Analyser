@@ -26,11 +26,6 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-//type GraphWriter::Méthode ( liste des paramètres )
-// Algorithme :
-//{
-//} //----- Fin de Méthode
-
 
 //------------------------------------------------- Surcharge d'opérateurs
 ofstream& operator << (ofstream & ofs, const GraphWriter &graphWriter)
@@ -57,15 +52,17 @@ ofstream& operator << (ofstream & ofs, const GraphWriter &graphWriter)
 
 	ofs << "}";
 
-
 	return ofs;
 }
 
 char GraphWriter::AddRelation(const string referer, const string target, const int hit)
+// Algorithme : 
+//
 {
+	//create a key for the map
 	pair<string, string> key = make_pair(referer, target);
 
-	//insert both referer and target to the set
+	//insert both referer and target to the set (set will only insert unique values)
 	nodes.insert(referer);
 	nodes.insert(target);
 
@@ -88,8 +85,6 @@ void GraphWriter::Clear()
 
 //-------------------------------------------- Constructeurs - destructeur
 GraphWriter::GraphWriter()
-// Algorithme :
-//
 {
 #ifdef MAP
 	cout << "Appel au constructeur de <GraphWriter>" << endl;
@@ -98,8 +93,6 @@ GraphWriter::GraphWriter()
 } //----- Fin de GraphWriter
 
 GraphWriter::~GraphWriter()
-// Algorithme :
-//
 {
 #ifdef MAP
 	cout << "Appel au destructeur de <GraphWriter>" << endl;

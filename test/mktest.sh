@@ -25,8 +25,11 @@ do
   let "total=$total+1"
 done
 
+echo "---------------------"
 echo "Passed tests     : $passed"
 echo "Failed tests     : $failed"
 echo "Malformed tests  : $malformed"
-echo "--------------------"
+echo "---------------------"
 echo "Total            : $total"
+echo "---------------------"
+
